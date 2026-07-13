@@ -9,232 +9,356 @@
 <meta property="og:description" content="安政元年創業・茨城県稲敷市。江戸崎銘菓かぼちゃパイと大杉神社御用菓子の老舗。">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/monaka.jpg">
+<meta name="theme-color" content="#141b28">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ground:#141110;
-    --panel:#1d1916;
-    --panel-2:#282220;
-    --ink:#ece4d2;
-    --ink-dim:#b8ac93;
-    --gold:#c9972f;
+    /* 藍 — 黒糖羊羹の箱の紺 */
+    --ai:#141b28;
+    --ai-deep:#0e1420;
+    --ai-panel:#1a2334;
+    /* 生成り — 包み紙 */
+    --kinari:#efe8d6;
+    --kinari-2:#e7dec8;
+    --sumi-on-light:#2b2620;
+    --dim-on-light:#6f6452;
+    /* 金箔 */
+    --gold:#c39c45;
+    --gold-deep:#9a7a2e;
+    /* 朱 — 神社 */
     --shu:#b5462c;
-    --line:rgba(201,151,47,.28);
-    --plate:#f6f2e9;
+    --ink:#e9e2d0;
+    --ink-dim:#a99c82;
+    --line:rgba(195,156,69,.30);
+    --line-on-light:rgba(122,95,40,.30);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   html,body{margin:0;padding:0}
   body{
-    background:var(--ground);
+    background:var(--ai);
     color:var(--ink);
     font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
-    line-height:1.9;
+    line-height:2.0;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
+  /* 紙の質感 */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
   .sans{font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
   a{color:inherit;text-decoration:none}
-  a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   img{max-width:100%;display:block}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
 
   /* ===== ヘッダー ===== */
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(20,17,16,.86);
-    backdrop-filter:blur(10px);
+    background:rgba(14,20,32,.9);
     border-bottom:1px solid var(--line);
   }
-  .hd{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{display:flex;align-items:baseline;gap:12px}
-  .logo b{font-size:20px;letter-spacing:.35em;font-weight:600}
-  .logo span{font-size:10.5px;letter-spacing:.22em;color:var(--gold)}
-  nav.gnav{display:flex;gap:26px;font-size:13px;letter-spacing:.18em}
-  nav.gnav a{color:var(--ink-dim);transition:color .25s}
-  nav.gnav a:hover{color:var(--gold)}
+  .hd{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{display:flex;align-items:baseline;gap:12px;min-width:0}
+  .logo b{font-size:19px;letter-spacing:.3em;font-weight:600;white-space:nowrap}
+  .logo span{font-size:10px;letter-spacing:.2em;color:var(--gold);white-space:nowrap}
   .cta-mini{
     border:1px solid var(--gold);color:var(--gold);
-    padding:7px 18px;font-size:12px;letter-spacing:.2em;
-    transition:background .25s,color .25s;white-space:nowrap;
+    padding:7px 16px;font-size:11.5px;letter-spacing:.18em;white-space:nowrap;
+    transition:background .25s,color .25s;
   }
-  .cta-mini:hover{background:var(--gold);color:var(--ground)}
-  @media(max-width:820px){ nav.gnav{display:none} }
+  .cta-mini:hover{background:var(--gold);color:var(--ai-deep)}
+  @media(max-width:520px){ .logo span{display:none} }
 
-  /* ===== ヒーロー ===== */
+  /* ===== 序(ヒーロー) ===== */
   .hero{
-    position:relative;min-height:92vh;
-    display:flex;align-items:stretch;
+    position:relative;
+    min-height:100vh;min-height:100svh;
+    display:flex;
     border-bottom:1px solid var(--line);
     overflow:hidden;
     background:
-      linear-gradient(100deg, rgba(20,17,16,.96) 0%, rgba(20,17,16,.82) 44%, rgba(20,17,16,.42) 100%),
+      linear-gradient(100deg, rgba(14,20,32,.97) 0%, rgba(14,20,32,.88) 46%, rgba(20,27,40,.55) 100%),
       url("img/monaka.jpg") right center / cover no-repeat;
+    background-blend-mode:normal,multiply;
+    background-color:var(--ai);
   }
   .hero-inner{
-    position:relative;flex:1;display:flex;justify-content:space-between;
-    max-width:1100px;margin:0 auto;padding:70px 24px 56px;width:100%;
+    position:relative;flex:1;display:flex;justify-content:space-between;gap:24px;
+    max-width:1060px;margin:0 auto;padding:80px 24px 64px;width:100%;
   }
-  .hero-copy{align-self:flex-end;max-width:440px}
+  .hero-copy{align-self:flex-end;max-width:420px}
   .est{
     display:inline-flex;align-items:center;gap:14px;
-    color:var(--gold);font-size:12px;letter-spacing:.35em;margin-bottom:22px;
+    color:var(--gold);font-size:11.5px;letter-spacing:.32em;margin-bottom:20px;
   }
-  .est::before{content:"";width:44px;height:1px;background:var(--gold)}
-  .hero-copy p{margin:0 0 30px;color:var(--ink);font-size:15px;max-width:36ch;text-shadow:0 1px 12px rgba(20,17,16,.8)}
+  .est::before{content:"";width:40px;height:1px;background:var(--gold)}
+  .hero-copy p{margin:0 0 26px;font-size:14.5px;max-width:36ch;text-shadow:0 1px 14px rgba(14,20,32,.9)}
   .hero-tate{
     writing-mode:vertical-rl;text-orientation:mixed;
-    font-size:clamp(44px,7.5vw,84px);
-    font-weight:600;letter-spacing:.28em;line-height:1.5;
-    margin:0;align-self:flex-start;
-    text-shadow:0 2px 24px rgba(20,17,16,.9);
+    font-size:clamp(38px,7vw,78px);
+    font-weight:600;letter-spacing:.26em;line-height:1.5;
+    margin:0;align-self:center;
+    max-height:72vh;max-height:72svh;
+    text-shadow:0 2px 26px rgba(14,20,32,.95);
   }
   .hero-tate small{
-    font-size:.28em;letter-spacing:.5em;color:var(--gold);
-    font-weight:500;margin-top:1.2em;
+    font-size:.26em;letter-spacing:.42em;color:var(--gold);
+    font-weight:500;margin-top:1.4em;
   }
+  .scroll-cue{
+    position:absolute;left:24px;bottom:0;z-index:3;
+    writing-mode:vertical-rl;
+    color:var(--ink-dim);font-size:10.5px;letter-spacing:.4em;
+    display:flex;align-items:center;gap:10px;height:150px;
+  }
+  .scroll-cue::after{content:"";width:1px;flex:1;background:linear-gradient(var(--gold),transparent)}
   .btn{
     display:inline-block;border:1px solid var(--gold);color:var(--gold);
-    padding:14px 38px;font-size:13px;letter-spacing:.3em;
-    transition:background .25s,color .25s;background:rgba(20,17,16,.5);
+    padding:13px 34px;font-size:12.5px;letter-spacing:.28em;
+    background:rgba(14,20,32,.45);
+    transition:background .25s,color .25s;
   }
-  .btn:hover{background:var(--gold);color:var(--ground)}
-  .btn--fill{background:var(--gold);color:var(--ground)}
+  .btn:hover{background:var(--gold);color:var(--ai-deep)}
+  .btn--fill{background:var(--gold);color:var(--ai-deep)}
   .btn--fill:hover{background:transparent;color:var(--gold)}
-  @media(max-width:820px){
+  @media(max-width:760px){
     .hero{min-height:auto}
-    .hero-inner{flex-direction:column;gap:48px;padding-top:56px}
-    .hero-tate{font-size:clamp(40px,11vw,60px);align-self:flex-end;max-height:420px}
-    .hero-copy{align-self:flex-start}
+    .hero-inner{flex-direction:column-reverse;gap:40px;padding:64px 24px 90px}
+    .hero-tate{align-self:flex-end;font-size:clamp(40px,12vw,58px);max-height:62vh}
+    .hero-copy{align-self:flex-start;max-width:100%}
+    .scroll-cue{height:110px;bottom:-8px}
   }
 
-  /* ===== 帯 ===== */
-  .obi{
-    border-bottom:1px solid var(--line);
-    padding:14px 0;white-space:nowrap;overflow:hidden;
-    color:var(--gold);font-size:12.5px;letter-spacing:.4em;
+  /* ===== 目録 ===== */
+  .mokuroku{border-bottom:1px solid var(--line);background:var(--ai-deep)}
+  .mokuroku ol{
+    margin:0;padding:0;list-style:none;
+    display:grid;grid-template-columns:repeat(4,1fr);
   }
-  .obi-track{display:inline-block;padding-left:100%;animation:obi 38s linear infinite}
-  @keyframes obi{to{transform:translateX(-100%)}}
-  @media (prefers-reduced-motion: reduce){
-    .obi-track{animation:none;padding-left:24px}
+  .mokuroku a{
+    display:flex;align-items:baseline;gap:12px;justify-content:center;
+    padding:20px 10px;font-size:13px;letter-spacing:.22em;
+    border-left:1px solid var(--line);
+    transition:background .25s,color .25s;
+  }
+  .mokuroku li:first-child a{border-left:none}
+  .mokuroku a:hover{background:var(--ai-panel);color:var(--gold)}
+  .mokuroku .no{color:var(--gold);font-size:12px}
+  @media(max-width:760px){
+    .mokuroku ol{grid-template-columns:repeat(2,1fr)}
+    .mokuroku li:nth-child(3) a{border-left:none}
+    .mokuroku li:nth-child(n+3) a{border-top:1px solid var(--line)}
   }
 
-  /* ===== セクション共通 ===== */
-  section{padding:110px 0}
-  .sec-head{margin-bottom:64px}
-  .eyebrow{
-    color:var(--gold);font-size:12px;letter-spacing:.4em;margin:0 0 14px;
-    display:flex;align-items:center;gap:14px;
+  /* ===== 章共通 ===== */
+  .ch{position:relative;padding:120px 0;overflow:hidden}
+  .ch-head{position:relative;margin-bottom:70px}
+  .ghost{
+    position:absolute;top:-70px;right:-10px;z-index:0;
+    font-size:clamp(160px,26vw,300px);font-weight:700;line-height:1;
+    color:transparent;-webkit-text-stroke:1px var(--line);
+    pointer-events:none;user-select:none;
   }
-  .eyebrow::after{content:"";flex:0 0 44px;height:1px;background:var(--gold)}
+  .ch-eyebrow{
+    color:var(--gold);font-size:12px;letter-spacing:.4em;margin:0 0 16px;
+    display:flex;align-items:center;gap:14px;position:relative;z-index:1;
+  }
+  .ch-eyebrow::after{content:"";flex:0 0 44px;height:1px;background:var(--gold)}
   h2{
-    font-size:clamp(26px,3.4vw,38px);font-weight:600;
-    letter-spacing:.14em;margin:0;line-height:1.6;text-wrap:balance;
+    font-size:clamp(26px,3.6vw,40px);font-weight:600;
+    letter-spacing:.14em;margin:0;line-height:1.7;text-wrap:balance;
+    position:relative;z-index:1;
   }
-  .lead{color:var(--ink-dim);max-width:60ch;margin:22px 0 0;font-size:15px}
+  .lead{color:var(--ink-dim);max-width:58ch;margin:24px 0 0;font-size:14.5px;position:relative;z-index:1}
 
-  /* ===== 三本柱 ===== */
-  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  .pillar{background:var(--ground);padding:44px 34px 48px;transition:background .3s}
-  .pillar:hover{background:var(--panel)}
-  .pillar .num{
-    font-size:15px;color:var(--gold);letter-spacing:.3em;margin-bottom:26px;
-    display:flex;align-items:center;gap:12px;
+  /* 明るい章(生成り) */
+  .ch--light{background:var(--kinari);color:var(--sumi-on-light)}
+  .ch--light .lead{color:var(--dim-on-light)}
+  .ch--light .ghost{-webkit-text-stroke:1px var(--line-on-light)}
+  .ch--light .ch-eyebrow{color:var(--gold-deep)}
+  .ch--light .ch-eyebrow::after{background:var(--gold-deep)}
+
+  /* ===== 壱ノ章 年表 ===== */
+  .nenpyo{margin:0;padding:0;list-style:none;position:relative;z-index:1}
+  .nenpyo li{
+    position:relative;
+    display:grid;grid-template-columns:190px 1fr;gap:34px;
+    padding:38px 0 38px 34px;
   }
-  .pillar .num::after{content:"";width:28px;height:1px;background:var(--line)}
-  .pillar h3{font-size:20px;letter-spacing:.16em;margin:0 0 16px;font-weight:600}
-  .pillar p{margin:0;color:var(--ink-dim);font-size:14px}
-  @media(max-width:820px){ .pillars{grid-template-columns:1fr} }
-
-  /* ===== 銘菓 ===== */
-  .photo{position:relative;overflow:hidden}
-  .photo img{width:100%;height:100%;object-fit:cover}
-  .photo--plate{background:var(--plate)}
-  .photo--plate img{object-fit:contain;padding:8%}
-
-  .kaboch-hero{
-    display:grid;grid-template-columns:1.1fr .9fr;gap:1px;
-    background:var(--line);border:1px solid var(--line);margin-bottom:72px;
+  .nenpyo li::before{ /* 背骨 */
+    content:"";position:absolute;left:0;top:0;bottom:0;width:1px;
+    background:var(--line);
   }
-  .kaboch-hero .photo{min-height:380px}
-  .kaboch-copy{background:var(--panel);padding:52px 46px;display:flex;flex-direction:column;justify-content:center}
-  .kaboch-copy .tag{color:var(--gold);font-size:11.5px;letter-spacing:.3em;margin:0 0 18px}
-  .kaboch-copy h3{font-size:30px;letter-spacing:.18em;margin:0 0 6px;font-weight:600}
-  .price{font-size:14px;color:var(--gold);letter-spacing:.12em;margin:0 0 22px;font-variant-numeric:tabular-nums}
-  .kaboch-copy p{margin:0;color:var(--ink-dim);font-size:14.5px;max-width:40ch}
-  @media(max-width:820px){ .kaboch-hero{grid-template-columns:1fr} .kaboch-hero .photo{min-height:280px} .kaboch-copy{padding:38px 28px} }
+  .nenpyo li::after{ /* 結び目 */
+    content:"";position:absolute;left:-4px;top:56px;
+    width:9px;height:9px;transform:rotate(45deg);
+    background:var(--gold);
+  }
+  .nenpyo li:first-child::before{top:44px}
+  .nenpyo li:last-child::before{bottom:auto;height:70px}
+  .nenpyo .year{color:var(--gold);letter-spacing:.14em;font-size:15px;line-height:1.7}
+  .nenpyo .year b{
+    display:block;font-family:"Zen Kaku Gothic New",sans-serif;
+    font-weight:500;font-size:12px;letter-spacing:.3em;color:var(--ink-dim);
+    font-variant-numeric:tabular-nums;
+  }
+  .nenpyo h3{font-size:19px;letter-spacing:.14em;margin:0 0 10px;font-weight:600}
+  .nenpyo p{margin:0;color:var(--ink-dim);font-size:14px;max-width:54ch}
+  @media(max-width:760px){
+    .nenpyo li{grid-template-columns:1fr;gap:8px;padding:30px 0 30px 26px}
+    .nenpyo li::after{top:40px}
+    .nenpyo li:first-child::before{top:32px}
+  }
 
-  .goods{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-  .good .photo{aspect-ratio:1;margin-bottom:20px;border:1px solid var(--line)}
-  .good h4{font-size:17px;letter-spacing:.14em;margin:0 0 4px;font-weight:600}
-  .good .price{margin:0 0 10px}
-  .good p{margin:0;color:var(--ink-dim);font-size:13.5px}
-  @media(max-width:820px){ .goods{grid-template-columns:1fr} }
+  /* ===== 弐ノ章 銘菓 ===== */
+  .feature{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line-on-light);
+    margin-bottom:80px;position:relative;z-index:1;
+    background:#fff;
+  }
+  .feature .photo{min-height:380px;position:relative;overflow:hidden}
+  .feature .photo img{width:100%;height:100%;object-fit:contain;padding:6%}
+  .feature-copy{
+    padding:54px 48px;border-left:1px solid var(--line-on-light);
+    display:flex;flex-direction:column;justify-content:center;
+    background:var(--kinari);
+  }
+  .feature-copy .tag{
+    display:inline-block;align-self:flex-start;
+    border:1px solid var(--gold-deep);color:var(--gold-deep);
+    font-size:10.5px;letter-spacing:.26em;padding:4px 12px;margin:0 0 22px;
+  }
+  .feature-copy h3{font-size:clamp(26px,3vw,34px);letter-spacing:.2em;margin:0 0 4px;font-weight:600}
+  .feature-copy .yomi{color:var(--dim-on-light);font-size:11px;letter-spacing:.3em;margin:0 0 20px}
+  .feature-copy p{margin:0;color:var(--dim-on-light);font-size:14.5px;max-width:38ch}
+  .feature-copy .price-big{
+    margin:24px 0 0;color:var(--sumi-on-light);font-size:15px;letter-spacing:.12em;
+    font-variant-numeric:tabular-nums;
+  }
+  .feature-copy .price-big b{font-size:30px;color:var(--gold-deep);font-weight:600;margin:0 2px}
+  @media(max-width:760px){
+    .feature{grid-template-columns:1fr}
+    .feature .photo{min-height:250px}
+    .feature-copy{border-left:none;border-top:1px solid var(--line-on-light);padding:36px 26px}
+  }
 
-  /* ===== 神社 ===== */
-  .jinja{background:var(--panel);border-block:1px solid var(--line)}
-  .jinja-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
-  .jinja .photo{min-height:420px;border:1px solid var(--line)}
-  .credit{
-    position:absolute;right:8px;bottom:6px;margin:0;
-    font-size:9px;letter-spacing:.05em;color:rgba(255,255,255,.75);
-    background:rgba(20,17,16,.55);padding:2px 8px;border-radius:2px;
+  /* 品書き */
+  .shinagaki{margin:0;padding:0;list-style:none;position:relative;z-index:1}
+  .shinagaki-title{
+    font-size:13px;letter-spacing:.4em;color:var(--gold-deep);
+    margin:0 0 26px;display:flex;align-items:center;gap:16px;
+  }
+  .shinagaki-title::after{content:"";flex:1;height:1px;background:var(--line-on-light)}
+  .shinagaki li{padding:22px 0;border-bottom:1px dashed var(--line-on-light)}
+  .shinagaki .row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .shinagaki .name{font-size:17.5px;font-weight:600;letter-spacing:.16em;white-space:nowrap}
+  .shinagaki .leader{flex:1;min-width:40px;border-bottom:1px dotted var(--line-on-light);transform:translateY(-4px)}
+  .shinagaki .price{
+    font-size:14px;color:var(--sumi-on-light);letter-spacing:.06em;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .shinagaki .desc{margin:8px 0 0;color:var(--dim-on-light);font-size:13.5px;max-width:60ch}
+  .shinagaki .season{
+    display:inline-block;font-size:10px;letter-spacing:.2em;color:var(--gold-deep);
+    border:1px solid var(--line-on-light);padding:2px 8px;margin-left:10px;vertical-align:2px;
+  }
+  .ig-note{
+    margin-top:44px;padding:26px 30px;border:1px solid var(--line-on-light);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    position:relative;z-index:1;
+  }
+  .ig-note p{margin:0;font-size:14px;color:var(--dim-on-light)}
+  .ig-note .btn{border-color:var(--gold-deep);color:var(--gold-deep);background:transparent}
+  .ig-note .btn:hover{background:var(--gold-deep);color:var(--kinari)}
+
+  /* ===== 参ノ章 神社 ===== */
+  .ch--jinja{background:var(--ai-deep);padding-top:0}
+  .jinja-visual{position:relative;min-height:52vh;overflow:hidden;border-bottom:1px solid var(--line)}
+  .jinja-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .jinja-visual::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(rgba(14,20,32,.25), rgba(14,20,32,.88) 88%);
+  }
+  .jinja-visual .credit{
+    position:absolute;right:10px;bottom:8px;z-index:2;margin:0;
+    font-size:9px;color:rgba(255,255,255,.75);
+    background:rgba(14,20,32,.55);padding:2px 8px;border-radius:2px;
   }
   .credit a{text-decoration:underline}
-  .engimono{margin:38px 0 0;padding:0;display:grid;border-top:1px solid var(--line)}
-  .engimono li{
-    list-style:none;display:flex;justify-content:space-between;gap:24px;
-    padding:18px 4px;border-bottom:1px solid var(--line);font-size:14.5px;
+  .jinja-visual .caption{
+    position:absolute;left:24px;bottom:20px;z-index:2;margin:0;
+    font-size:11px;letter-spacing:.28em;color:var(--ink-dim);
   }
-  .engimono b{font-weight:600;letter-spacing:.1em}
-  .engimono span{color:var(--ink-dim);font-size:13px;text-align:right}
-  .shu-mark{color:var(--shu)}
-  @media(max-width:820px){ .jinja-grid{grid-template-columns:1fr;gap:40px} .jinja .photo{min-height:280px} }
+  .ch--jinja .ch-eyebrow{color:var(--shu)}
+  .ch--jinja .ch-eyebrow::after{background:var(--shu)}
+  .ch--jinja .inner{padding-top:90px}
+  .engi{margin:56px 0 0;padding:0;list-style:none;border-top:1px solid var(--line);position:relative;z-index:1}
+  .engi li{padding:24px 0;border-bottom:1px solid var(--line)}
+  .engi .row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .engi .name{font-size:18px;font-weight:600;letter-spacing:.18em;white-space:nowrap}
+  .engi .name::before{content:"◆";color:var(--shu);font-size:10px;margin-right:12px;vertical-align:3px}
+  .engi .leader{flex:1;min-width:40px;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
+  .engi .price{font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .engi .desc{margin:8px 0 0 24px;color:var(--ink-dim);font-size:13.5px;max-width:58ch}
 
-  /* ===== EC ===== */
-  .ec-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:1px;
-    background:var(--line);border:1px solid var(--line);
+  /* ===== 結 ===== */
+  .musubi-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line);position:relative;z-index:1;
+    background:var(--ai-panel);margin-bottom:80px;
   }
-  .ec-copy{background:var(--panel);padding:60px 50px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
-  .ec-copy h2{margin-bottom:18px}
-  .ec-copy p{color:var(--ink-dim);margin:0 0 36px;max-width:44ch;font-size:15px}
-  .ec-grid .photo{min-height:400px}
-  @media(max-width:820px){ .ec-grid{grid-template-columns:1fr} .ec-grid .photo{min-height:260px} .ec-copy{padding:40px 28px} }
+  .musubi-grid .photo{min-height:400px;position:relative;overflow:hidden}
+  .musubi-grid .photo img{width:100%;height:100%;object-fit:cover}
+  .musubi-copy{padding:56px 48px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;border-left:1px solid var(--line)}
+  .musubi-copy h3{font-size:clamp(22px,2.6vw,30px);letter-spacing:.16em;margin:0 0 18px;font-weight:600;line-height:1.8}
+  .musubi-copy p{color:var(--ink-dim);margin:0 0 34px;max-width:42ch;font-size:14.5px}
+  @media(max-width:760px){
+    .musubi-grid{grid-template-columns:1fr}
+    .musubi-grid .photo{min-height:240px}
+    .musubi-copy{border-left:none;border-top:1px solid var(--line);padding:38px 26px}
+  }
 
-  /* ===== 店舗 ===== */
-  .shops{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  .shop{background:var(--ground);padding:46px 40px}
-  .shop .tag{color:var(--gold);font-size:11.5px;letter-spacing:.3em;margin:0 0 14px}
-  .shop h3{font-size:21px;letter-spacing:.14em;margin:0 0 24px;font-weight:600}
-  .shop dl{margin:0;font-size:14px;display:grid;grid-template-columns:5.5em 1fr;row-gap:10px}
+  .shops{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);position:relative;z-index:1}
+  .shop{padding:44px 38px;background:var(--ai)}
+  .shop + .shop{border-left:1px solid var(--line)}
+  .shop .tag{color:var(--gold);font-size:11px;letter-spacing:.3em;margin:0 0 12px}
+  .shop h3{font-size:20px;letter-spacing:.14em;margin:0 0 22px;font-weight:600}
+  .shop dl{margin:0;font-size:13.5px;display:grid;grid-template-columns:5.5em 1fr;row-gap:9px}
   .shop dt{color:var(--ink-dim);letter-spacing:.1em}
   .shop dd{margin:0;font-variant-numeric:tabular-nums}
-  .shop .map{display:inline-block;margin-top:22px;font-size:12px;letter-spacing:.2em;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:2px}
-  @media(max-width:820px){ .shops{grid-template-columns:1fr} }
+  .shop .map{display:inline-block;margin-top:20px;font-size:11.5px;letter-spacing:.2em;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:2px}
+  @media(max-width:760px){
+    .shops{grid-template-columns:1fr}
+    .shop + .shop{border-left:none;border-top:1px solid var(--line)}
+  }
 
-  /* ===== Instagram ===== */
-  .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:44px 0 36px}
+  /* IG 帯 */
+  .ig-strip{margin-top:80px;position:relative;z-index:1}
+  .ig-strip .head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:26px}
+  .ig-strip h3{font-size:18px;letter-spacing:.2em;margin:0;font-weight:600}
+  .ig-strip .head a{font-size:12px;letter-spacing:.2em;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:2px}
+  .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
   .ig-grid a{display:block;aspect-ratio:1;overflow:hidden}
   .ig-grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
   .ig-grid a:hover img{transform:scale(1.06)}
-  .ig-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-  .ig-cta small{color:var(--ink-dim);letter-spacing:.08em}
-  @media(max-width:820px){ .ig-grid{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:760px){ .ig-grid{grid-template-columns:repeat(3,1fr)} }
 
   /* ===== フッター ===== */
-  footer{border-top:1px solid var(--line);padding:56px 0 46px;color:var(--ink-dim);font-size:12.5px}
-  .ft{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline}
+  footer{border-top:1px solid var(--line);padding:52px 0 44px;color:var(--ink-dim);font-size:12.5px;background:var(--ai-deep)}
+  .ft{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline;position:relative;z-index:2}
   .ft b{color:var(--ink);letter-spacing:.3em;font-size:15px;font-weight:600}
-  .ft nav{display:flex;gap:20px;font-size:12px;flex-wrap:wrap}
-  .ft-note{margin-top:26px;font-size:10.5px;color:rgba(184,172,147,.6)}
+  .ft nav{display:flex;gap:18px;font-size:11.5px;flex-wrap:wrap}
+  .ft-note{margin-top:24px;font-size:10.5px;color:rgba(169,156,130,.6);position:relative;z-index:2}
 
-  /* ===== 出現アニメ ===== */
-  .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  /* ===== 出現 ===== */
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
   .rv.on{opacity:1;transform:none}
   @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;transition:none} }
 </style>
@@ -243,145 +367,181 @@
 
 <header>
   <div class="wrap hd">
-    <a class="logo" href="#top"><b>東郷菓子舗</b><span>安政元年創業</span></a>
-    <nav class="gnav sans">
-      <a href="#about">私たちについて</a>
-      <a href="#meika">銘菓</a>
-      <a href="#jinja">大杉神社と結夢庵</a>
-      <a href="#shops">店舗・アクセス</a>
-    </nav>
+    <a class="logo" href="#top"><b>東郷菓子舗</b><span>安政元年創業 — 茨城・稲敷</span></a>
     <a class="cta-mini sans" href="https://tougoukashiho.com/shop/">オンラインショップ</a>
   </div>
 </header>
 
-<!-- ヒーロー -->
+<!-- 序 -->
 <div class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-copy rv">
-      <span class="est sans">EST. 1854 — 茨城・稲敷</span>
-      <p>安政元年、江戸の世に生まれて百七十年。稲敷市でただ一軒、百年を超えて暖簾を守る菓子舗が、大杉神社の御膝元で菓子を作り続けています。</p>
-      <a class="btn sans" href="#meika">銘菓を見る</a>
+      <span class="est sans">序 — EST. 1854</span>
+      <p>安政元年、江戸の世に生まれて百七十年。稲敷市でただ一軒、百年を超えて暖簾を守る菓子舗が、大杉神社の御膝元で今日も菓子を作っています。</p>
+      <a class="btn sans" href="#meika">品書きを見る</a>
     </div>
     <h1 class="hero-tate rv">夢を結ぶ、<br>和菓子。<small>大杉神社御用菓子</small></h1>
   </div>
+  <p class="scroll-cue sans">頁を繰る</p>
 </div>
 
-<!-- 帯 -->
-<div class="obi sans" aria-hidden="true">
-  <span class="obi-track">大杉神社御用菓子 ／ 江戸崎銘菓 かぼちゃパイ ／ 創業百七十年 ／ 自家特製かすてら ／ 大杉神社御用菓子 ／ 江戸崎銘菓 かぼちゃパイ ／ 創業百七十年 ／ 自家特製かすてら ／</span>
-</div>
+<!-- 目録 -->
+<nav class="mokuroku sans" aria-label="目録">
+  <ol>
+    <li><a href="#dento"><span class="no">壱</span>伝統</a></li>
+    <li><a href="#meika"><span class="no">弐</span>銘菓</a></li>
+    <li><a href="#jinja"><span class="no">参</span>御用菓子</a></li>
+    <li><a href="#musubi"><span class="no">結</span>お取り寄せ</a></li>
+  </ol>
+</nav>
 
-<!-- 三本柱 -->
-<section id="about">
+<!-- 壱ノ章 伝統 -->
+<section class="ch" id="dento">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow sans">TOGO KASHIHO</p>
-      <h2>時代は変わる。味は変えない。</h2>
+    <div class="ch-head rv">
+      <span class="ghost" aria-hidden="true">壱</span>
+      <p class="ch-eyebrow sans">壱ノ章 — 伝統</p>
+      <h2>時代は変わる。<br>味は変えない。</h2>
       <p class="lead">守り続けているのは、派手さではなく誠実さです。甘さは控えめに、素材は正直に。今日焼いた菓子を、今日いちばん美味しい状態でお渡しする——それだけを百七十年、繰り返してきました。</p>
     </div>
-    <div class="pillars rv">
-      <div class="pillar">
-        <div class="num sans">壱</div>
-        <h3>百七十年の伝統</h3>
-        <p>安政元年(1854)創業。稲敷市でただ一軒、百年を超えて暖簾を守る菓子舗です。時代が変わっても、変わらない手仕事があります。</p>
-      </div>
-      <div class="pillar">
-        <div class="num sans">弐</div>
-        <h3>江戸崎かぼちゃ</h3>
-        <p>国が認めた地域ブランド「江戸崎かぼちゃ」(GI登録)。その濃厚な甘みを白餡に炊き上げ、パイに包みました。江戸崎土産の代名詞です。</p>
-      </div>
-      <div class="pillar">
-        <div class="num sans">参</div>
-        <h3>大杉神社 御用菓子</h3>
-        <p>日本唯一の"夢結び大明神"大杉神社。その御用菓子商として、境内の「結夢庵」で縁起菓子をお作りしています。</p>
-      </div>
-    </div>
+    <ol class="nenpyo rv">
+      <li>
+        <span class="year">安政元年<b>1854</b></span>
+        <div>
+          <h3>江戸崎の地に創業</h3>
+          <p>江戸の終わり、安政元年。東郷菓子舗は茨城・江戸崎の商店街に暖簾を掲げました。以来、戦争を越え、時代の波を越えて、この町の「甘い記憶」であり続けています。</p>
+        </div>
+      </li>
+      <li>
+        <span class="year">古くより<b>—</b></span>
+        <div>
+          <h3>大杉神社 御用菓子商</h3>
+          <p>日本唯一の"夢結び大明神"として知られる大杉神社。その御用菓子商を務め、祈願と感謝の菓子を納めてきました。いまも境内の「結夢庵」で縁起菓子をお作りしています。</p>
+        </div>
+      </li>
+      <li>
+        <span class="year">平成廿七年<b>2015</b></span>
+        <div>
+          <h3>「江戸崎かぼちゃ」GI登録</h3>
+          <p>地元名産・江戸崎かぼちゃが国の地理的表示保護制度(GI)に登録。その濃厚な甘みを白餡に炊き上げた「かぼちゃパイ」は、江戸崎土産の代名詞になりました。</p>
+        </div>
+      </li>
+      <li>
+        <span class="year">今日<b>AND NOW</b></span>
+        <div>
+          <h3>百七十年目の手仕事</h3>
+          <p>稲敷市でただ一軒、百年を超えて続く菓子舗として。変わらぬ製法と、変わらぬ距離感で、今日も店先でお待ちしています。</p>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- 銘菓 -->
-<section id="meika" style="padding-top:0">
+<!-- 弐ノ章 銘菓(生成り) -->
+<section class="ch ch--light" id="meika">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow sans">SIGNATURE</p>
-      <h2>銘菓</h2>
+    <div class="ch-head rv">
+      <span class="ghost" aria-hidden="true">弐</span>
+      <p class="ch-eyebrow sans">弐ノ章 — 銘菓</p>
+      <h2>江戸崎銘菓、かぼちゃパイ。</h2>
+      <p class="lead">全国でここだけの、GI認証「江戸崎かぼちゃ」の菓子。ホクホクとした甘みを白餡に炊き上げ、香ばしいパイ生地で包みました。</p>
     </div>
 
-    <div class="kaboch-hero rv">
-      <div class="photo photo--plate"><img src="img/p_kabocha.jpg" alt="江戸崎銘菓 かぼちゃパイ" loading="lazy"></div>
-      <div class="kaboch-copy">
-        <p class="tag sans">GI認証・江戸崎かぼちゃ使用</p>
+    <div class="feature rv">
+      <div class="photo"><img src="img/p_kabocha.jpg" alt="江戸崎銘菓 かぼちゃパイ" loading="lazy"></div>
+      <div class="feature-copy">
+        <span class="tag sans">GI認証・江戸崎かぼちゃ使用</span>
         <h3>かぼちゃパイ</h3>
-        <p class="price sans">1個 120円(税込)</p>
-        <p>地元名産・江戸崎かぼちゃのホクホクとした甘みを白餡に炊き上げ、香ばしいパイ生地で包みました。江戸崎土産の定番にして、当店いちばんの人気者。</p>
+        <p class="yomi sans">EDOSAKI KABOCHA PIE</p>
+        <p>地元の畑で育った江戸崎かぼちゃだけを使い、ひとつずつ店の窯で焼き上げます。手土産に、参拝みやげに、当店いちばんの人気者。</p>
+        <p class="price-big sans">1個 <b>120</b>円(税込)</p>
       </div>
     </div>
 
-    <div class="goods rv">
-      <div class="good">
-        <div class="photo photo--plate"><img src="img/p_kasutera.jpg" alt="自家特製かすてら" loading="lazy"></div>
-        <h4>自家特製かすてら</h4>
-        <p class="price sans">大 1,200円 / 小 600円</p>
-        <p>昔ながらの窯で焼き上げる看板商品。しっとりとした生地と素朴な甘さ。</p>
-      </div>
-      <div class="good">
-        <div class="photo photo--plate"><img src="img/p_dorayaki.jpg" alt="どらやき" loading="lazy"></div>
-        <h4>どらやき</h4>
-        <p class="price sans">8個 1,400円 / 12個 2,100円</p>
-        <p>ふっくら焼いた皮に、甘さ控えめの粒餡をたっぷりと。</p>
-      </div>
-      <div class="good">
-        <div class="photo photo--plate"><img src="img/p_yokan.jpg" alt="羊羹各種" loading="lazy"></div>
-        <h4>羊羹 三種</h4>
-        <p class="price sans">小豆・栗・黒糖 各 1,000円</p>
-        <p>贈答に喜ばれる、練りの確かな定番羊羹。栗最中・栗饅頭もございます。</p>
-      </div>
+    <p class="shinagaki-title sans rv">品書き</p>
+    <ul class="shinagaki rv">
+      <li>
+        <div class="row"><span class="name">自家特製かすてら</span><span class="leader"></span><span class="price sans">大 1,200円 / 小 600円</span></div>
+        <p class="desc">昔ながらの窯で焼く看板商品。しっとりとした生地と素朴な甘さは、百七十年の定番。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">どらやき</span><span class="leader"></span><span class="price sans">8個 1,400円 / 12個 2,100円</span></div>
+        <p class="desc">ふっくら焼いた皮に、甘さ控えめの粒餡をたっぷりと。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">羊羹 三種</span><span class="leader"></span><span class="price sans">小豆・栗・黒糖 各 1,000円</span></div>
+        <p class="desc">藍の箱に金の箔押し。贈答に喜ばれる、練りの確かな定番羊羹。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">栗最中・栗饅頭</span><span class="leader"></span><span class="price sans">店頭にて</span></div>
+        <p class="desc">大粒の栗を贅沢に。お茶請けの顔ぶれ。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">水まんじゅう・くずきりそうめん<span class="season sans">夏季限定</span></span><span class="leader"></span><span class="price sans">店頭にて</span></div>
+        <p class="desc">季節の涼菓。夏の江戸崎の楽しみです。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">季節の上生菓子</span><span class="leader"></span><span class="price sans">店頭にて</span></div>
+        <p class="desc">春夏秋冬、職人が季節を写し取ります。最新の意匠はInstagramで。</p>
+      </li>
+    </ul>
+
+    <div class="ig-note rv">
+      <p>今日の上生菓子、季節の新作は Instagram でお知らせしています。</p>
+      <a class="btn sans" href="https://www.instagram.com/tougoukashiho/">@tougoukashiho</a>
     </div>
   </div>
 </section>
 
-<!-- 大杉神社 -->
-<section class="jinja" id="jinja">
-  <div class="wrap jinja-grid">
-    <div class="photo rv">
-      <img src="img/jinja.jpg" alt="大杉神社 麒麟門" loading="lazy">
-      <p class="credit sans">写真: <a href="https://commons.wikimedia.org/wiki/File:Osugi_Shrine_01.jpg">Σ64</a> / CC BY 3.0</p>
-    </div>
-    <div class="rv">
-      <p class="eyebrow sans">YUIMUAN — <span class="shu-mark">大杉神社境内</span></p>
+<!-- 参ノ章 御用菓子 -->
+<section class="ch ch--jinja" id="jinja">
+  <div class="jinja-visual rv">
+    <img src="img/jinja.jpg" alt="大杉神社 麒麟門" loading="lazy">
+    <p class="caption sans">大杉神社 — あんばさま総本宮(茨城・稲敷)</p>
+    <p class="credit sans">写真: <a href="https://commons.wikimedia.org/wiki/File:Osugi_Shrine_01.jpg">Σ64</a> / CC BY 3.0</p>
+  </div>
+  <div class="wrap inner">
+    <div class="ch-head rv">
+      <span class="ghost" aria-hidden="true">参</span>
+      <p class="ch-eyebrow sans">参ノ章 — 御用菓子</p>
       <h2>願いを、菓子に結ぶ。</h2>
-      <p class="lead">稲敷市阿波・大杉神社。「あんばさま」と親しまれる関東の古社は、日本で唯一の"夢結び大明神"。東郷菓子舗は古くよりその御用菓子商を務め、境内入口の「結夢庵(ゆいむあん)」にて、参拝の方々へ縁起菓子をお作りしています。</p>
-      <ul class="engimono">
-        <li><b>夢饅頭</b><span>黒糖と吉野葛の皮に、夢が叶うようにとの願いを。6個入 540円〜</span></li>
-        <li><b>厄よけ最中</b><span>「ねがい天狗」「かない天狗」を象った縁起最中</span></li>
-        <li><b>夢だんご</b><span>結夢庵限定</span></li>
-      </ul>
+      <p class="lead">「あんばさま」と親しまれる関東の古社・大杉神社は、日本で唯一の"夢結び大明神"。東郷菓子舗は古くよりその御用菓子商を務め、境内入口の「結夢庵(ゆいむあん)」にて、参拝の方々へ縁起菓子をお作りしています。参拝のあとに、願掛けの手土産に。</p>
     </div>
+    <ul class="engi rv">
+      <li>
+        <div class="row"><span class="name">夢饅頭</span><span class="leader"></span><span class="price sans">6個入 540円〜</span></div>
+        <p class="desc">黒糖と吉野葛を練り込んだ皮に込めたのは、夢が叶うようにとの願い。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">厄よけ最中</span><span class="leader"></span><span class="price sans">結夢庵にて</span></div>
+        <p class="desc">大杉大明神の眷族「ねがい天狗」「かない天狗」を象った縁起最中。</p>
+      </li>
+      <li>
+        <div class="row"><span class="name">夢だんご</span><span class="leader"></span><span class="price sans">結夢庵限定</span></div>
+        <p class="desc">結夢庵でしか出会えない、参拝みやげの定番。</p>
+      </li>
+    </ul>
   </div>
 </section>
 
-<!-- EC -->
-<section id="ec" style="padding-bottom:0">
+<!-- 結 -->
+<section class="ch" id="musubi" style="background:var(--ai)">
   <div class="wrap">
-    <div class="ec-grid rv">
-      <div class="photo"><img src="img/ec_P1011755.jpg" alt="詰め合わせギフト" loading="lazy"></div>
-      <div class="ec-copy">
-        <p class="eyebrow sans">ONLINE SHOP</p>
-        <h2>百七十年の味を、<br>ご自宅へ。</h2>
-        <p>手土産に、ご贈答に、ふるさとの味の取り寄せに。かぼちゃパイ、かすてら、羊羹詰め合わせを全国へお届けします。ご進物・熨斗も承ります。</p>
+    <div class="ch-head rv">
+      <span class="ghost" aria-hidden="true">結</span>
+      <p class="ch-eyebrow sans">結 — お取り寄せ・店舗</p>
+      <h2>百七十年の味を、ご自宅へ。</h2>
+    </div>
+
+    <div class="musubi-grid rv">
+      <div class="photo"><img src="img/ec_P1011702.jpg" alt="羊羹詰め合わせ(藍箱・金箔押し)" loading="lazy"></div>
+      <div class="musubi-copy">
+        <h3>手土産に、ご贈答に、<br>ふるさとの味の取り寄せに。</h3>
+        <p>かぼちゃパイ、かすてら、羊羹詰め合わせを全国へお届けします。ご進物・熨斗も承ります。</p>
         <a class="btn btn--fill sans" href="https://tougoukashiho.com/shop/">オンラインショップへ</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- 店舗 -->
-<section id="shops">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow sans">SHOPS</p>
-      <h2>店舗・アクセス</h2>
-    </div>
     <div class="shops rv">
       <div class="shop">
         <p class="tag sans">本店</p>
@@ -406,28 +566,20 @@
         <a class="map sans" href="https://www.google.com/maps/search/%E7%B5%90%E5%A4%A2%E5%BA%B5+%E8%8C%A8%E5%9F%8E%E7%9C%8C%E7%A8%B2%E6%95%B7%E5%B8%82%E9%98%BF%E6%B3%A2958">GOOGLE MAPS →</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Instagram -->
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv" style="margin-bottom:0">
-      <p class="eyebrow sans">INSTAGRAM</p>
-      <h2>季節の菓子だより</h2>
-      <p class="lead">今日の上生菓子、季節の新作は Instagram で。</p>
-    </div>
-    <div class="ig-grid rv">
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/namagashi.jpg" alt="季節の上生菓子" loading="lazy"></a>
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011755.jpg" alt="詰め合わせ" loading="lazy"></a>
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011702.jpg" alt="羊羹詰め合わせ" loading="lazy"></a>
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/hero.jpg" alt="饅頭" loading="lazy"></a>
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011793.jpg" alt="どらやき詰め合わせ" loading="lazy"></a>
-      <a href="https://www.instagram.com/tougoukashiho/"><img src="img/monaka.jpg" alt="最中" loading="lazy"></a>
-    </div>
-    <div class="ig-cta rv">
-      <a class="btn sans" href="https://www.instagram.com/tougoukashiho/">@tougoukashiho をフォロー</a>
-      <small class="sans">※ 本実装時は最新6投稿を自動表示します</small>
+    <div class="ig-strip rv">
+      <div class="head">
+        <h3>季節の菓子だより</h3>
+        <a class="sans" href="https://www.instagram.com/tougoukashiho/">@tougoukashiho をフォロー →</a>
+      </div>
+      <div class="ig-grid">
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/namagashi.jpg" alt="季節の上生菓子" loading="lazy"></a>
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011755.jpg" alt="詰め合わせ" loading="lazy"></a>
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011702.jpg" alt="羊羹詰め合わせ" loading="lazy"></a>
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/hero.jpg" alt="饅頭" loading="lazy"></a>
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/ec_P1011793.jpg" alt="どらやき詰め合わせ" loading="lazy"></a>
+        <a href="https://www.instagram.com/tougoukashiho/"><img src="img/monaka.jpg" alt="最中" loading="lazy"></a>
+      </div>
     </div>
   </div>
 </section>
@@ -437,10 +589,10 @@
     <div class="ft">
       <b>東郷菓子舗</b>
       <nav class="sans">
-        <a href="#about">私たちについて</a>
-        <a href="#meika">銘菓</a>
-        <a href="#jinja">結夢庵</a>
-        <a href="#shops">アクセス</a>
+        <a href="#dento">壱 伝統</a>
+        <a href="#meika">弐 銘菓</a>
+        <a href="#jinja">参 御用菓子</a>
+        <a href="#musubi">結 お取り寄せ</a>
         <a href="https://tougoukashiho.com/shop/">オンラインショップ</a>
         <a href="https://www.instagram.com/tougoukashiho/">Instagram</a>
       </nav>
@@ -453,7 +605,7 @@
 <script>
   const io = new IntersectionObserver((es)=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
-  },{threshold:.12});
+  },{threshold:.1});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
