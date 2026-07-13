@@ -13,7 +13,7 @@
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
     /* 藍 — 黒糖羊羹の箱の紺 */
@@ -82,14 +82,36 @@
     display:flex;
     border-bottom:1px solid var(--line);
     overflow:hidden;
-    background:
-      linear-gradient(100deg, rgba(14,20,32,.97) 0%, rgba(14,20,32,.88) 46%, rgba(20,27,40,.55) 100%),
-      url("img/monaka.jpg") right center / cover no-repeat;
-    background-blend-mode:normal,multiply;
-    background-color:var(--ai);
+    background:var(--ai);
+  }
+  /* 全画面クロスフェード・スライドショー */
+  .hero-slides{position:absolute;inset:0;z-index:0}
+  .hero-slides .slide{
+    position:absolute;inset:0;opacity:0;
+    background-size:cover;background-position:right center;
+    animation:heroFade 21s ease-in-out infinite;
+    will-change:opacity,transform;
+  }
+  .hero-slides .slide:nth-child(1){animation-delay:0s}
+  .hero-slides .slide:nth-child(2){animation-delay:7s}
+  .hero-slides .slide:nth-child(3){animation-delay:14s}
+  @keyframes heroFade{
+    0%{opacity:0;transform:scale(1)}
+    7%{opacity:1}
+    33.3%{opacity:1;transform:scale(1.06)}
+    41%{opacity:0;transform:scale(1.075)}
+    100%{opacity:0;transform:scale(1)}
+  }
+  .hero-veil{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(100deg, rgba(14,20,32,.97) 0%, rgba(14,20,32,.88) 46%, rgba(20,27,40,.55) 100%);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-slides .slide{animation:none;opacity:0}
+    .hero-slides .slide:first-child{opacity:1}
   }
   .hero-inner{
-    position:relative;flex:1;display:flex;justify-content:space-between;gap:24px;
+    position:relative;z-index:2;flex:1;display:flex;justify-content:space-between;gap:24px;
     max-width:1060px;margin:0 auto;padding:80px 24px 64px;width:100%;
   }
   .hero-copy{align-self:flex-end;max-width:420px}
@@ -133,12 +155,9 @@
   .btn--fill{background:var(--gold);color:var(--ai-deep)}
   .btn--fill:hover{background:transparent;color:var(--gold)}
   @media(max-width:760px){
-    .hero{
-      min-height:auto;
-      background:
-        linear-gradient(160deg, rgba(14,20,32,.92) 0%, rgba(14,20,32,.72) 55%, rgba(20,27,40,.45) 100%),
-        url("img/monaka.jpg") 68% center / cover no-repeat;
-    }
+    .hero{min-height:auto}
+    .hero-slides .slide{background-position:68% center}
+    .hero-veil{background:linear-gradient(160deg, rgba(14,20,32,.92) 0%, rgba(14,20,32,.72) 55%, rgba(20,27,40,.45) 100%)}
     .hero-inner{flex-direction:column-reverse;gap:40px;padding:64px 24px 72px}
     .hero-tate{align-self:flex-end;font-size:clamp(40px,12vw,58px);max-height:62vh}
     .hero-copy{align-self:flex-start;max-width:100%}
@@ -371,9 +390,22 @@
   .ft-note{margin-top:24px;font-size:10.5px;color:rgba(169,156,130,.6);position:relative;z-index:2}
 
   /* ===== 出現 ===== */
-  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+  .rv{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease}
   .rv.on{opacity:1;transform:none}
   @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;transition:none} }
+
+  /* キャッチを一文字ずつ(JSが .tate-go を付与した時のみ有効) */
+  .tate-go .chr{opacity:0;animation:chrIn 1.1s ease forwards;animation-delay:var(--d,0s)}
+  .tate-go small{opacity:0;animation:chrIn 1.4s ease forwards;animation-delay:1.7s}
+  @keyframes chrIn{to{opacity:1}}
+  @media (prefers-reduced-motion: reduce){
+    .tate-go .chr,.tate-go small{animation:none;opacity:1}
+  }
+
+  /* 欧文はクラシックセリフ(Cormorant Garamond) */
+  .est,.yomi,.nenpyo .year b,.shop .map,.ig-strip .head a{
+    font-family:"Cormorant Garamond","Shippori Mincho",serif;font-weight:500;
+  }
 </style>
 </head>
 <body>
@@ -387,13 +419,19 @@
 
 <!-- 序 -->
 <div class="hero" id="top">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="slide" style="background-image:url('img/monaka.jpg')"></div>
+    <div class="slide" style="background-image:url('img/hero.jpg')"></div>
+    <div class="slide" style="background-image:url('img/namagashi.jpg')"></div>
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-copy rv">
-      <span class="est sans">序 — EST. 1854</span>
+      <span class="est">序 — EST. 1854</span>
       <p>安政元年、江戸の世に生まれて百七十年。稲敷市でただ一軒、百年を超えて暖簾を守る菓子舗が、大杉神社の御膝元で今日も菓子を作っています。</p>
       <a class="btn sans" href="#meika">品書きを見る</a>
     </div>
-    <h1 class="hero-tate rv">夢を結ぶ、<br>和菓子。<small>大杉神社御用菓子</small></h1>
+    <h1 class="hero-tate">夢を結ぶ、<br>和菓子。<small>大杉神社御用菓子</small></h1>
   </div>
   <p class="scroll-cue sans">頁を繰る</p>
 </div>
@@ -620,6 +658,29 @@
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
   },{threshold:.1});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // キャッチコピーを一文字ずつ現す(reduced-motion時は何もしない)
+  (function(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const tate=document.querySelector('.hero-tate');
+    if(!tate) return;
+    let i=0;
+    [...tate.childNodes].forEach(n=>{
+      if(n.nodeType!==3) return;
+      const frag=document.createDocumentFragment();
+      [...n.textContent].forEach(c=>{
+        if(!c.trim()){frag.appendChild(document.createTextNode(c));return;}
+        const s=document.createElement('span');
+        s.className='chr';
+        s.style.setProperty('--d',(0.2+i*0.14)+'s');
+        s.textContent=c;
+        frag.appendChild(s);
+        i++;
+      });
+      n.replaceWith(frag);
+    });
+    tate.classList.add('tate-go');
+  })();
 </script>
 </body>
 </html>
